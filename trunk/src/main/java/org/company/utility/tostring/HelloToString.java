@@ -86,7 +86,8 @@ public class HelloToString
 	@Override
 	public String toString()
 	{
-		return Utilities.toString(this, this.getClass());
+		// return Utilities.toString(this, this.getClass());
+		return Utilities.toString(this);
 	}
 
 }

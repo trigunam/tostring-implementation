@@ -27,11 +27,30 @@ public enum Utilities
 	 * For a given class object, return a string representation which contains the implementation of POJO's
 	 * get methods only. This should be used for POJO's (Plain Old Java Objects) only.
 	 * 
+	 * @param objectInstance
+	 *            java.lang.Object of the POJO for which toString implementation should be returned.
+	 * 
+	 * @return POJO getters are invoked and appended to a string which is returned from this method.
+	 */
+	public static String toString(Object objectInstance)
+	{
+		return toString(objectInstance, objectInstance.getClass());
+	}
+
+	/**
+	 * For a given class object, return a string representation which contains the implementation of POJO's
+	 * get methods only. This should be used for POJO's (Plain Old Java Objects) only.
+	 * 
+	 * @param objectInstance
+	 *            java.lang.Object of the POJO for which toString implementation should be returned.
 	 * @param classObject
 	 *            java.lang.Class of the POJO for which toString implementation should be returned.
 	 * 
 	 * @return POJO getters are invoked and appended to a string which is returned from this method.
+	 * 
+	 * @deprecated use {@link #toString(Object objectInstance)} instead.
 	 */
+	@Deprecated
 	public static String toString(Object objectInstance, Class classObject)
 	{
 
@@ -107,7 +126,7 @@ public enum Utilities
 			// Do nothing. We are interested only on get methods in toString method.
 		} else
 		{
-			return methodName + " = " + method.invoke(objectInstance, (Object[]) null) + ", ";
+			return methodName.substring(3) + " = " + method.invoke(objectInstance, (Object[]) null) + ", ";
 		}
 
 		return "";
