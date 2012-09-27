@@ -1,5 +1,7 @@
 package org.company.utility.tostring;
 
+import java.util.List;
+
 /**
  * Hello World program to describe the toString-implementation project. This is a sample POJO class.
  * 
@@ -10,7 +12,7 @@ public class HelloToString
 {
 	long id = 1;
 	String name;
-	String address;
+	List<String> addresses;
 
 	/**
 	 * Default constructor.
@@ -26,10 +28,10 @@ public class HelloToString
 	 * @param name
 	 * @param address
 	 */
-	public HelloToString(String name, String address)
+	public HelloToString(String name, List<String> addresses)
 	{
 		this.setName(name);
-		this.setAddress(address);
+		this.setAddresses(addresses);
 	}
 
 	/**
@@ -67,20 +69,20 @@ public class HelloToString
 	}
 
 	/**
-	 * @return the address
+	 * @return the addresses
 	 */
-	public String getAddress()
+	public List<String> getAddresses()
 	{
-		return this.address;
+		return this.addresses;
 	}
 
 	/**
-	 * @param address
-	 *            the address to set
+	 * @param addresses
+	 *            the addresses to set
 	 */
-	public void setAddress(String address)
+	public void setAddresses(List<String> addresses)
 	{
-		this.address = address;
+		this.addresses = addresses;
 	}
 
 	@Override
