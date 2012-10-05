@@ -1,5 +1,7 @@
 package org.company.utility.tostring;
 
+import java.util.Arrays;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -48,7 +50,9 @@ public class HelloToStringTest
 	@Before
 	public void setUp() throws Exception
 	{
-		this.setHelloToString(new HelloToString("Triguna", "Bangalore, Karnataka, India"));
+		this.setHelloToString(new HelloToString("Triguna", Arrays.asList(new String[] {
+				"Bangalore", "Karnataka", "India"
+		})));
 	}
 
 	/**
