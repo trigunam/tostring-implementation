@@ -1,4 +1,4 @@
-#labels Phase-Review
+#labels Phase-Review,Featured
 #This page helps analyze the review comments posted by many developers, who have directly or indirectly contributed to this project. These review comments will be part of the project as future releases. In a way this is the project roadmap.
 
 = Review comments on 07th of Sep 2012 =
@@ -12,3 +12,7 @@
   * Mention the limitations of the project. Some of them include: The library works only if getters and setters are generated for a POJO class. No need to pass instance and class, we can get class from the instance itself.
   * The output contains getId = 1, getName = "Triguna", can it be like Id = 1, Name = "Triguna"?
   * Anything else?
+
+= Review comments on 22nd of Feb 2013 =
+
+  * Calendar object prints unnecessary information. Can we change it to print only what is required?
