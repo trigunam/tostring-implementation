@@ -1,6 +1,7 @@
 package org.company.utility.tostring;
 
 import java.util.Arrays;
+import java.util.Calendar;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -13,8 +14,7 @@ import org.slf4j.LoggerFactory;
  * @author Triguna
  * @since Project v1.0
  */
-public class HelloToStringTest
-{
+public class HelloToStringTest {
 	private static final Logger _logger = LoggerFactory.getLogger(HelloToStringTest.class);
 
 	HelloToString helloToString;
@@ -22,8 +22,7 @@ public class HelloToStringTest
 	/**
 	 * @return the Logger
 	 */
-	public static Logger getLogger()
-	{
+	public static Logger getLogger() {
 		return _logger;
 	}
 
@@ -31,16 +30,14 @@ public class HelloToStringTest
 	 * @param helloToString
 	 *            the helloToString to set
 	 */
-	public void setHelloToString(HelloToString helloToString)
-	{
+	public void setHelloToString(HelloToString helloToString) {
 		this.helloToString = helloToString;
 	}
 
 	/**
 	 * @return the helloToString
 	 */
-	public HelloToString getHelloToString()
-	{
+	public HelloToString getHelloToString() {
 		return this.helloToString;
 	}
 
@@ -48,20 +45,22 @@ public class HelloToStringTest
 	 * @throws java.lang.Exception
 	 */
 	@Before
-	public void setUp() throws Exception
-	{
-		this.setHelloToString(new HelloToString("Triguna", Arrays.asList(new String[] {
-				"Bangalore", "Karnataka", "India"
-		})));
+	public void setUp() throws Exception {
+		this.setHelloToString(new HelloToString("Triguna", Arrays.asList(new String[] { "Bangalore", "Karnataka",
+				"India" }), Calendar.getInstance()));
 	}
 
 	/**
 	 * Test method for {@link org.company.utility.tostring.HelloToString#toString()}.
 	 */
 	@Test
-	public void testToString()
-	{
+	public void testToString() {
+		long start = System.currentTimeMillis();
 		// Using slf4j over logback to print the toString implementation for HelloToString.
 		getLogger().debug("{}", this.getHelloToString().toString());
+		System.out.println(this.getHelloToString().toString());
+
+		System.out.println("Time taken to use toString method = " + ((System.currentTimeMillis() - start) / 1000.0)
+				+ " ms");
 	}
 }
