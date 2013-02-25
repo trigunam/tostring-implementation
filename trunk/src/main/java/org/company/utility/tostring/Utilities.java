@@ -5,6 +5,7 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Calendar;
 
 /**
  * Utilities enum to get a toString implementation.
@@ -13,22 +14,20 @@ import java.lang.reflect.Method;
  * @since Project v1.0
  * @see The Java Language Specification, section 8.2
  */
-public enum Utilities
-{
+public enum Utilities {
 	// No enum variables as of now
 	;
 
 	/**
 	 * Default Private Constructor
 	 */
-	private Utilities()
-	{
+	private Utilities() {
 		// Not used as of now
 	}
 
 	/**
-	 * For a given class object, return a string representation which contains the implementation of POJO's
-	 * get methods only. This should be used for POJO's (Plain Old Java Objects) only.
+	 * For a given class object, return a string representation which contains the implementation of POJO's get methods
+	 * only. This should be used for POJO's (Plain Old Java Objects) only.
 	 * 
 	 * @param objectInstance
 	 *            java.lang.Object of the POJO for which toString implementation should be returned.
@@ -38,14 +37,13 @@ public enum Utilities
 	 * @since Project v1.1
 	 * @see #getStringUsingBean(Object)
 	 */
-	public static String toString(Object objectInstance)
-	{
+	public static String toString(Object objectInstance) {
 		return getStringUsingBean(objectInstance);
 	}
 
 	/**
-	 * For a given class object, return a string representation which contains the implementation of POJO's
-	 * get methods only. This should be used for POJO's (Plain Old Java Objects) only.
+	 * For a given class object, return a string representation which contains the implementation of POJO's get methods
+	 * only. This should be used for POJO's (Plain Old Java Objects) only.
 	 * 
 	 * @param objectInstance
 	 *            java.lang.Object of the POJO for which toString implementation should be returned.
@@ -60,8 +58,7 @@ public enum Utilities
 	 * @see #getString(Object)
 	 */
 	@Deprecated
-	public static String toString(Object objectInstance, Class classObject)
-	{
+	public static String toString(Object objectInstance, Class classObject) {
 		return getString(objectInstance);
 	}
 
@@ -76,37 +73,71 @@ public enum Utilities
 	 * @since Project v1.2
 	 * @see #toString(Object)
 	 */
-	private static String getStringUsingBean(Object objectInstance)
-	{
-		StringBuilder buildString = new StringBuilder();
+	private static String getStringUsingBean(Object objectInstance) {
+		StringBuilder buildString = null;
 
-		try
-		{
-			for (PropertyDescriptor propertyDescriptor : Introspector.getBeanInfo(objectInstance.getClass())
-					.getPropertyDescriptors())
-			{
-				if (propertyDescriptor.getReadMethod() != null && !"class".equals(propertyDescriptor.getName()))
-				{
-					Method method = propertyDescriptor.getReadMethod();
+		try {
+			PropertyDescriptor[] propertyDescriptors =
+					Introspector.getBeanInfo(objectInstance.getClass()).getPropertyDescriptors();
+
+			buildString = new StringBuilder(propertyDescriptors.length * 4);
+
+			for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
+				Method method = propertyDescriptor.getReadMethod();
+				if (method != null && !"class".equals(propertyDescriptor.getName())) {
+
 					buildString.append(method.getName().substring(3));
 					buildString.append(" = ");
-					buildString.append(propertyDescriptor.getReadMethod().invoke(objectInstance));
+
+					Object objectReturned = method.invoke(objectInstance);
+					if (objectReturned instanceof Calendar) {
+						// No need to print the entire Calendar object. just print the date and time.
+						buildString.append(getCalendarString((Calendar) objectReturned));
+					} else {
+						// Print the entire object.
+						buildString.append(objectReturned);
+					}
+
 					buildString.append(", ");
 				}
 			}
-		}
-		catch (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex1)
-		{
+		} catch (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex1) {
 			// getLogger().error("IntrospectionException while executing toString...", ex1);
 		}
 
-		return buildString.toString().substring(0, buildString.length() - 1);
+		return buildString.toString();
 	}
 
 	/**
-	 * Uses a typical reflection to get the methods of a given instance. Once we get the methods, we filter
-	 * out the methods by set, get and invoke only get methods to append to the string which will later result
-	 * into tostring-implementation.
+	 * @return calendarReturned
+	 * 
+	 * @since Project v1.3
+	 * @see #toString(Object)
+	 */
+	private static String getCalendarString(Calendar calendarReturned) {
+		StringBuilder buildString = new StringBuilder(13);
+
+		buildString.append(calendarReturned.get(Calendar.YEAR));
+		buildString.append("-");
+		buildString.append(calendarReturned.get(Calendar.MONTH) + 1);
+		buildString.append("-");
+		buildString.append(calendarReturned.get(Calendar.DAY_OF_MONTH));
+		buildString.append(" ");
+		buildString.append(calendarReturned.get(Calendar.HOUR_OF_DAY));
+		buildString.append(":");
+		buildString.append(calendarReturned.get(Calendar.MINUTE));
+		buildString.append(":");
+		buildString.append(calendarReturned.get(Calendar.SECOND));
+		buildString.append(".");
+		buildString.append(calendarReturned.get(Calendar.MILLISECOND));
+
+		return buildString.toString();
+	}
+
+	/**
+	 * Uses a typical reflection to get the methods of a given instance. Once we get the methods, we filter out the
+	 * methods by set, get and invoke only get methods to append to the string which will later result into
+	 * tostring-implementation.
 	 * 
 	 * @param objectInstance
 	 *            Instance of an object for which tostring is required.
@@ -116,8 +147,7 @@ public enum Utilities
 	 * @since Project v1.0
 	 * @see #getString(Object)
 	 */
-	private static String getString(Object objectInstance)
-	{
+	private static String getString(Object objectInstance) {
 		Class classObject = objectInstance.getClass();
 
 		// Get all the methods
@@ -129,24 +159,19 @@ public enum Utilities
 		buildString.append(classObject);
 		buildString.append(" -->> ");
 
-		for (Method method : methods)
-		{
+		for (Method method : methods) {
 			String methodName = method.getName();
-			switch (methodName)
-			{
+			switch (methodName) {
 				case "toString":
 				case "main":
 				case "getLogger":
 					// Do Nothing
 					break;
 				default:
-					try
-					{
+					try {
 						buildString.append(extractMethodNames(classObject, objectInstance, methodName, method));
-					}
-					catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
-							| InstantiationException ex)
-					{
+					} catch (IllegalAccessException | IllegalArgumentException | InvocationTargetException
+							| InstantiationException ex) {
 						// Do nothing as this is just printing the POJO implementations...
 						// getLogger().error("Exception while executing toString...", ex);
 					}
@@ -168,20 +193,19 @@ public enum Utilities
 	 * @return A String value with methodName = methodValue.
 	 * 
 	 * @throws IllegalAccessException
-	 *             if this Method object is enforcing Java language access control and the underlying method
-	 *             is inaccessible.
+	 *             if this Method object is enforcing Java language access control and the underlying method is
+	 *             inaccessible.
 	 * @throws IllegalArgumentException
-	 *             if the method is an instance method and the specified object argument is not an instance of
-	 *             the class or interface declaring the underlying method (or of a subclass or implementor
-	 *             thereof); if the number of actual and formal parameters differ; if an unwrapping conversion
-	 *             for primitive arguments fails; or if, after possible unwrapping, a parameter value cannot
-	 *             be converted to the corresponding formal parameter type by a method invocation conversion.
+	 *             if the method is an instance method and the specified object argument is not an instance of the class
+	 *             or interface declaring the underlying method (or of a subclass or implementor thereof); if the number
+	 *             of actual and formal parameters differ; if an unwrapping conversion for primitive arguments fails; or
+	 *             if, after possible unwrapping, a parameter value cannot be converted to the corresponding formal
+	 *             parameter type by a method invocation conversion.
 	 * @throws InvocationTargetException
 	 *             if the underlying method throws an exception.
 	 * @throws InstantiationException
-	 *             if this Class represents an abstract class, an interface, an array class, a primitive type,
-	 *             or void; or if the class has no nullary constructor; or if the instantiation fails for some
-	 *             other reason.
+	 *             if this Class represents an abstract class, an interface, an array class, a primitive type, or void;
+	 *             or if the class has no nullary constructor; or if the instantiation fails for some other reason.
 	 * 
 	 * @since Project v1.0
 	 * @see #getString(Object)
@@ -189,14 +213,10 @@ public enum Utilities
 	private static String
 			extractMethodNames(Class classObject, Object objectInstance, String methodName, Method method)
 					throws IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-					InstantiationException
-	{
-		if (methodName.startsWith("set"))
-		{
+					InstantiationException {
+		if (methodName.startsWith("set")) {
 			// Do nothing. We are interested only on get methods in toString method.
-		}
-		else
-		{
+		} else {
 			return methodName.substring(3) + " = " + method.invoke(objectInstance, (Object[]) null) + ", ";
 		}
 
