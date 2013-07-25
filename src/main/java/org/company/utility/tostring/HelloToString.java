@@ -9,7 +9,7 @@ import java.util.List;
  * @author Triguna
  * @since Project v1.0
  */
-public class HelloToString {
+public class HelloToString /* extends AssessmentItem */{
 	long id = 1;
 	String name;
 	List<String> addresses;
