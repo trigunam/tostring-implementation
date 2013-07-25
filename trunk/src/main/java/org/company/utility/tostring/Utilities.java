@@ -70,6 +70,7 @@ public enum Utilities {
 	 *            Instance of an object for which tostring is required.
 	 * 
 	 * @return toString implementation of this.
+	 * 
 	 * @since Project v1.2
 	 * @see #toString(Object)
 	 */
@@ -86,16 +87,23 @@ public enum Utilities {
 				Method method = propertyDescriptor.getReadMethod();
 				if (method != null && !"class".equals(propertyDescriptor.getName())) {
 
-					buildString.append(method.getName().substring(3));
+					String methodName = method.getName().substring(3);
+
+					buildString.append(methodName);
 					buildString.append(" = ");
 
-					Object objectReturned = method.invoke(objectInstance);
-					if (objectReturned instanceof Calendar) {
-						// No need to print the entire Calendar object. just print the date and time.
-						buildString.append(getCalendarString((Calendar) objectReturned));
+					// Check if there exists any parent. This check will avoid stack over flow if any.
+					if (isParent(methodName, method, buildString)) {
+						continue;
 					} else {
-						// Print the entire object.
-						buildString.append(objectReturned);
+						Object objectReturned = method.invoke(objectInstance);
+						if (objectReturned instanceof Calendar) {
+							// No need to print the entire Calendar object. just print the date and time.
+							buildString.append(getCalendarString((Calendar) objectReturned));
+						} else {
+							// Print the entire object.
+							buildString.append(objectReturned);
+						}
 					}
 
 					buildString.append(", ");
@@ -106,6 +114,37 @@ public enum Utilities {
 		}
 
 		return buildString.toString();
+	}
+
+	/**
+	 * Check if there exists any parent in the methodName if so, get the declaraingClass just to indicate that this is a
+	 * parent. Append to the buildString.
+	 * 
+	 * @param methodName
+	 *            Name of the method (substring to 3 - to avoid get).
+	 * @param method
+	 *            {@link Method}
+	 * @param buildString
+	 *            {@link StringBuilder} to append
+	 * 
+	 * @return True if an only if there exists a recursion.
+	 * 
+	 * @since Project v1.3
+	 * @see #toString(Object)
+	 */
+	private static boolean isParent(String methodName, Method method, StringBuilder buildString) {
+		// If methodName is one of the following, its going to go for infinite loop as its going to refer to
+		// the parent.
+		switch (methodName) {
+			case ToStringConstants.ParentItem:
+			case ToStringConstants.ParentRoot:
+				// Avoiding stackOverFlow.
+				buildString.append(method.getDeclaringClass());
+				return true;
+			default:
+				return false;
+		}
+
 	}
 
 	/**
