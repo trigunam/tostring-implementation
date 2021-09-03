@@ -3,7 +3,7 @@
 [![Maven build status](https://github.com/trigunam/tostring-implementation/actions/workflows/test.yml/badge.svg)](https://github.com/trigunam/tostring-implementation/actions/workflows/test.yml)
 [![Contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen)](CONTRIBUTING.md)
 
-This project is a library for any POJO class to implement a toString method. Given a class name and instance, the project will use reflection from Java API to get the getter methods for the given instance and execute it to print the methodName = methodValue in an appended string with comma separated values. This is very generic implementation so anybody can use this code to write their toString implementation. The idea is to avoid implementing toString by writing your own implementation every time.
+This project is a library for any POJO class to implement a toString method. Given a class name and instance, the project will use the reflection from Java API to get the getter methods for the given instance and execute it to print the methodName = methodValue in an appended string with comma-separated values. This is a very generic implementation so anybody can use this code to write their toString implementation. The idea is to avoid implementing toString by writing your own implementation every time.
 
 Please put your thoughts on the implementation so we can evolve as a project which will help every Java Developer.
 
