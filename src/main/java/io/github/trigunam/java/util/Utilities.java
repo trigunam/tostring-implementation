@@ -14,7 +14,7 @@ import io.github.trigunam.java.constants.ToStringConstants;
  * 
  * @author Triguna
  * @since Project v1.0
- * @see The Java Language Specification, section 8.2
+ * The Java Language Specification, section 8.2
  */
 public enum Utilities {
 	// No enum variables as of now
