@@ -22,11 +22,13 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
+      - name: Install dependencies
+        run: |
+          /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+          brew install openjdk
+          sudo ln -sfn $(brew --prefix)/opt/openjdk/libexec/openjdk.jdk /Library/Java/JavaVirtualMachines/openjdk.jdk
+      - name: Run build and test
+        run: |
           java -version
-      - name: Run build
-        run: |
           mvn clean install
-      - name: Run tests
-        run: |
-          mvn test
       - run: echo "🍏 This job's status is ${{ job.status }}."
