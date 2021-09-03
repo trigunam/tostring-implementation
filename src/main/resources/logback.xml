@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration>
+
+	<property name="msgFormat" value="%d [%thread] %-5level %logger{35} - %msg%n" />
+
+	<appender name="rfAppender"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<file>logs/tsi.log</file>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!-- daily rollover -->
+			<fileNamePattern>logs/tsi.%d{yyyy-MM-dd}.log
+			</fileNamePattern>
+
+			<!-- keep 30 days' worth of history -->
+			<maxHistory>30</maxHistory>
+		</rollingPolicy>
+
+		<encoder>
+			<pattern>${msgFormat}</pattern>
+		</encoder>
+	</appender>
+
+	<root level="TRACE">
+		<appender-ref ref="rfAppender" />
+	</root>
+</configuration>
