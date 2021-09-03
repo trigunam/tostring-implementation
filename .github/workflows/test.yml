@@ -25,7 +25,27 @@ jobs:
       - name: maven-settings-xml-action
         uses: whelk-io/maven-settings-xml-action@v18
         with:
-          servers: '[{ "id": "ossrh", "username": "${{ secrets.ACTION_USER }}", "password": "${{ secrets.ACTION_USER_KEY }}" }]'
+          servers: >
+            [
+              { 
+                "id": "ossrh", 
+                "username": "${{ secrets.ACTION_USER }}", 
+                "password": "${{ secrets.ACTION_USER_KEY }}" 
+              }
+            ]
+          profiles: >
+            [
+              {
+                "id": "ossrh",
+                "activation": {
+                  "activeByDefault": true
+                },
+                "properties": {
+                  "gpg.executable": "gpg",
+                  "gpg.passphrase": "${{ secrets.ACTION_GPG_KEY }}"
+                }
+              }
+            ]
       - name: Install dependencies and run build
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
