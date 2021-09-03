@@ -22,10 +22,11 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-      - name: Install dependencies and run build
+      - name: maven-settings-xml-action
         uses: whelk-io/maven-settings-xml-action@v18
         with:
           servers: '[{ "id": "ossrh", "username": "${{ secrets.ACTION_USER }}", "password": "${{ secrets.ACTION_USER_KEY }}" }]'
+      - name: Install dependencies and run build
         run: |
           /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
           brew install openjdk
