@@ -27,8 +27,8 @@ public class HelloToString /* extends AssessmentItem */{
 	/**
 	 * Constructor to take name and address for the HelloToString.
 	 * 
-	 * @param name
-	 * @param address
+	 * @param name Name as defined by the class
+	 * @param addresses Addresses as defined by the class
 	 */
 	public HelloToString(String name, List<String> addresses) {
 		this.setName(name);
@@ -38,8 +38,9 @@ public class HelloToString /* extends AssessmentItem */{
 	/**
 	 * Constructor to take name and address for the HelloToString.
 	 * 
-	 * @param name
-	 * @param address
+	 * @param name Name as defined by the class
+	 * @param addresses Addresses as defined by the class
+	 * @param now Calendar instance for today's date
 	 */
 	public HelloToString(String name, List<String> addresses, Calendar now) {
 		this.setName(name);
