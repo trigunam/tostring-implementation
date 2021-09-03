@@ -22,7 +22,7 @@ jobs:
       - name: List files in the repository
         run: |
           ls ${{ github.workspace }}
-          java --version
+          java -version
       - name: Run build
         run: |
           mvn clean install
