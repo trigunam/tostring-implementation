@@ -12,7 +12,7 @@ Using this library is simple and straight forward as mentioned in the details be
 ## Details
 
 To use the project library, follow these simple steps:
-- Download the library [here](http://code.google.com/p/tostring-implementation/downloads/detail?name=tostring-implementation-1.0.jar&can=2&q=)
+- Download the library [here](https://s01.oss.sonatype.org/content/repositories/releases/io/github/trigunam/java/util/tostring-implementation/2.1/)
 - Add to your classpath of your project.
 - Override toString in your POJO and replace return super.toString with return Utilities.toString(this).
 - Thats it!
