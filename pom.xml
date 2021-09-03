@@ -3,19 +3,19 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.trigunam.java.util</groupId>
   <artifactId>tostring-implementation</artifactId>
-  <version>2.0</version>
+  <version>2.1</version>
   <packaging>jar</packaging>
   <properties>
     <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
     <version.maven.source.plugin>2.2.1</version.maven.source.plugin>
     <version.maven.javadoc.plugin>2.9.1</version.maven.javadoc.plugin>
     <version.maven.gpg.plugin>1.5</version.maven.gpg.plugin>
-    <version.nexus.maven>1.6.7</version.nexus.maven>
+    <version.maven.release.plugin>2.5.3</version.maven.release.plugin>
+    <version.nexus.maven>1.6.8</version.nexus.maven>
     <version.java>16</version.java>
     <version.junit>4.13.2</version.junit>
     <version.slf4j>1.7.32</version.slf4j>
     <version.logback>1.2.5</version.logback>
-    <version.jqti>2.0a4</version.jqti>
   </properties>
   <!-- Project details -->
   <name>tostring-implementation</name>
@@ -33,6 +33,20 @@ Please put your thoughts on the implementation so we can evolve as a project whi
       <distribution>repo</distribution>
     </license>
   </licenses>
+  <developers>
+    <developer>
+      <id>trigunam</id>
+      <name>Triguna Mutuguppe Sripathi</name>
+      <email>triguna.mutuguppe@gmail.com</email>
+      <organization>io.github</organization>
+      <organizationUrl>https://github.com/trigunam/tostring-implementation</organizationUrl>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>+5:30</timezone>
+    </developer>
+  </developers>
   <scm>
     <url>https://github.com/trigunam/tostring-implementation</url>
   </scm>
@@ -54,10 +68,6 @@ Please put your thoughts on the implementation so we can evolve as a project whi
       <artifactId>logback-classic</artifactId>
       <version>${version.logback}</version>
     </dependency>
-    <!-- Following can be used to test stackOverFlow mentioned in issue#3 -->
-    <!-- JQTI Reference available in Apollo Util -->
-    <!-- <dependency> <groupId>com.merittrac.apollo.util</groupId> <artifactId>jqti</artifactId> <version>${version.jqti}</version> 
-			</dependency> -->
   </dependencies>
   <distributionManagement>
     <snapshotRepository>
@@ -81,17 +91,6 @@ Please put your thoughts on the implementation so we can evolve as a project whi
         </configuration>
       </plugin>
       <plugin>
-        <groupId>org.sonatype.plugins</groupId>
-        <artifactId>nexus-staging-maven-plugin</artifactId>
-        <version>${version.nexus.maven}</version>
-        <extensions>true</extensions>
-        <configuration>
-          <serverId>ossrh</serverId>
-          <nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
-          <autoReleaseAfterClose>true</autoReleaseAfterClose>
-        </configuration>
-      </plugin>
-      <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-source-plugin</artifactId>
         <version>${version.maven.source.plugin}</version>
@@ -110,7 +109,7 @@ Please put your thoughts on the implementation so we can evolve as a project whi
         <version>${version.maven.javadoc.plugin}</version>
         <configuration>
           <source>${version.java}</source>
-          <detectJavaApiLink>false</detectJavaApiLink>
+          <detectJavaApiLink>true</detectJavaApiLink>
         </configuration>
         <executions>
           <execution>
