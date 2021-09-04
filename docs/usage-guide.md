@@ -19,4 +19,24 @@ Please comment here if you are stuck anywhere while using this library.
 
 ## Using Maven Central
 
-Coming soon!
+Now you can use [maven dependency from Maven Central](https://search.maven.org/artifact/io.github.trigunam.java.util/tostring-implementation/2.1/jar) to manage artifactory in your repository.
+
+[![Now in Maven Central](../videos/now-in-mvn-central.gif)](https://search.maven.org/artifact/io.github.trigunam.java.util/tostring-implementation/2.1/jar)
+
+Use the following dependency to use in your repository:
+```xml
+<dependency>
+    <groupId>io.github.trigunam.java.util</groupId>
+    <artifactId>tostring-implementation</artifactId>
+    <version>2.1</version>
+</dependency>
+```
+
+```java
+import io.github.trigunam.java.util.Utilities;
+
+@Override
+public String toString() {
+    return Utilities.toString(this);
+}
+```
