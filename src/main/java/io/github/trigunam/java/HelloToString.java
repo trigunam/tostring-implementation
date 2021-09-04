@@ -110,7 +110,6 @@ public class HelloToString /* extends AssessmentItem */{
 
 	@Override
 	public String toString() {
-		// return Utilities.toString(this, this.getClass());
 		return Utilities.toString(this);
 	}
 

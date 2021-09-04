@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.trigunam.java.util</groupId>
   <artifactId>tostring-implementation</artifactId>
-  <version>2.0</version>
+  <version>2.2</version>
   <packaging>jar</packaging>
   <properties>
     <version.maven.compiler.plugin>3.8.1</version.maven.compiler.plugin>
@@ -28,8 +28,8 @@ Please put your thoughts on the implementation so we can evolve as a project whi
   <url>https://github.com/trigunam/tostring-implementation</url>
   <licenses>
     <license>
-      <name>Apache License, Version 2.0</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <name>GNU GENERAL PUBLIC LICENSE Version 3, 29 June 2007</name>
+      <url>https://choosealicense.com/licenses/gpl-3.0/</url>
       <distribution>repo</distribution>
     </license>
   </licenses>
