@@ -5,7 +5,7 @@
 
 This project is a library for any POJO class to implement a toString method without actually writing any implementation.
 
-[![Now in Maven Central](videos/now-in-mvn-central.gif)](https://search.maven.org/artifact/io.github.trigunam.java.util/tostring-implementation/2.1/jar)
+[![Now in Maven Central](videos/now-in-mvn-central.gif)](https://search.maven.org/artifact/io.github.trigunam.java.util/tostring-implementation)
 
 ## Usage
 

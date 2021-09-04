@@ -10,7 +10,7 @@ Using this library is simple and straight forward as mentioned in the details be
 ## Details
 
 To use the project library, follow these simple steps:
-- Download the library [here](https://s01.oss.sonatype.org/content/repositories/releases/io/github/trigunam/java/util/tostring-implementation/2.1/)
+- Download the library [here](https://s01.oss.sonatype.org/content/repositories/releases/io/github/trigunam/java/util/tostring-implementation)
 - Add to your classpath of your project.
 - Override toString in your POJO and replace return super.toString with return Utilities.toString(this).
 - Thats it!
@@ -19,9 +19,9 @@ Please comment here if you are stuck anywhere while using this library.
 
 ## Using Maven Central
 
-Now you can use [maven dependency from Maven Central](https://search.maven.org/artifact/io.github.trigunam.java.util/tostring-implementation/2.1/jar) to manage artifactory in your repository.
+Now you can use [maven dependency from Maven Central](https://search.maven.org/artifact/io.github.trigunam.java.util/tostring-implementation) to manage artifactory in your repository.
 
-[![Now in Maven Central](../videos/now-in-mvn-central.gif)](https://search.maven.org/artifact/io.github.trigunam.java.util/tostring-implementation/2.1/jar)
+[![Now in Maven Central](../videos/now-in-mvn-central.gif)](https://search.maven.org/artifact/io.github.trigunam.java.util/tostring-implementation)
 
 Use the following dependency to use in your repository:
 ```xml
