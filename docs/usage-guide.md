@@ -28,7 +28,7 @@ Use the following dependency to use in your repository:
 <dependency>
     <groupId>io.github.trigunam.java.util</groupId>
     <artifactId>tostring-implementation</artifactId>
-    <version>2.1</version>
+    <version>2.2</version>
 </dependency>
 ```
 
