@@ -3,9 +3,11 @@ package io.github.trigunam.java.util;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Calendar;
+import java.util.List;
 
 import io.github.trigunam.java.constants.ToStringConstants;
 
@@ -83,32 +85,41 @@ public enum Utilities {
 			PropertyDescriptor[] propertyDescriptors =
 					Introspector.getBeanInfo(objectInstance.getClass()).getPropertyDescriptors();
 
+
 			buildString = new StringBuilder(propertyDescriptors.length * 4);
+
 
 			for (PropertyDescriptor propertyDescriptor : propertyDescriptors) {
 				Method method = propertyDescriptor.getReadMethod();
+				Field [] fields = objectInstance.getClass().getDeclaredFields();
 				if (method != null && !"class".equals(propertyDescriptor.getName())) {
-
 					String methodName = method.getName().substring(3);
+					if (!sensitiveMethod(method)) {
+//
 
-					buildString.append(methodName);
-					buildString.append(" = ");
 
-					// Check if there exists any parent. This check will avoid stack over flow if any.
-					if (isParent(methodName, method, buildString)) {
-						continue;
-					} else {
-						Object objectReturned = method.invoke(objectInstance);
-						if (objectReturned instanceof Calendar) {
-							// No need to print the entire Calendar object. just print the date and time.
-							buildString.append(getCalendarString((Calendar) objectReturned));
+						buildString.append(methodName);
+						buildString.append(" = ");
+
+						// Check if there exists any parent. This check will avoid stack over flow if any.
+						if (isParent(methodName, method, buildString)) {
+							continue;
 						} else {
-							// Print the entire object.
-							buildString.append(objectReturned);
+							Object objectReturned = method.invoke(objectInstance);
+
+
+							if (objectReturned instanceof Calendar) {
+								// No need to print the entire Calendar object. just print the date and time.
+								buildString.append(getCalendarString((Calendar) objectReturned));
+							} else {
+								// Print the entire object.
+								buildString.append(objectReturned);
+							}
 						}
+
+						buildString.append(", ");
 					}
 
-					buildString.append(", ");
 				}
 			}
 		} catch (IntrospectionException | IllegalAccessException | IllegalArgumentException | InvocationTargetException ex1) {
@@ -117,6 +128,20 @@ public enum Utilities {
 
 		return buildString.toString();
 	}
+
+	/**
+	 *
+	 * @param method
+	 * @return  true of false depend on if the getMethod is annotated with Sensitive
+	 */
+	private static boolean sensitiveMethod(Method method) {
+		return method.isAnnotationPresent(Sensitive.class);
+	}
+
+//	private static boolean sensitiveInformation(Method method) {
+//
+//		return method.get
+//	}
 
 	/**
 	 * Check if there exists any parent in the methodName if so, get the declaraingClass just to indicate that this is a
