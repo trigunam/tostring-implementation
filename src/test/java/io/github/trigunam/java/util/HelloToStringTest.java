@@ -3,6 +3,7 @@ package io.github.trigunam.java.util;
 import java.util.Arrays;
 import java.util.Calendar;
 
+import io.github.trigunam.java.TEST;
 import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
@@ -64,5 +65,11 @@ public class HelloToStringTest {
 
 		System.out.println("Time taken to use toString method = " + ((System.currentTimeMillis() - start) / 1000.0)
 				+ " ms");
+	}
+
+	@Test
+	public void testClassToString(){
+		TEST T = new TEST("mohammed","5256932@@# ");
+		System.out.println(T);
 	}
 }

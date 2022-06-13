@@ -1,3 +1,4 @@
+
 # TOSTRING IMPLEMENTATION
 
 [![Maven build status](https://github.com/trigunam/tostring-implementation/actions/workflows/test.yml/badge.svg)](https://github.com/trigunam/tostring-implementation/actions/workflows/test.yml)
@@ -29,7 +30,22 @@ Given a class name and instance, the project will use the reflection from Java t
 
 This is a very generic implementation so anybody can use this code to write their toString implementation. The idea is to avoid implementing toString by writing your own implementation every time.
 
-Please put your thoughts on the implementation so we can evolve as a project which will help every Java Developer.
+Please put your thoughts on the implementation so we can evolve as a project which will help every Java Developer.  
+
+
+
+## Sensitive information 
+ to Ignore printing sensitive information  , you must to an annotated  the getMethod for this variable .
+
+Example : 
+
+````
+   @Sensitive
+    public String getPassword() {
+        return Password;
+    }
+    
+````
 
 ## Reviews from various stakeholders
 
